@@ -26,16 +26,16 @@ export const LoginPage: React.FC = () => {
   
   // Login State
   const [loginMethod, setLoginMethod] = useState<'email' | 'phone'>('email');
-  const [identifier, setIdentifier] = useState('afreen@example.com');
-  const [password, setPassword] = useState('afreen123');
+  const [identifier, setIdentifier] = useState('');
+  const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
   // Register (New User) State
-  const [regName, setRegName] = useState('Afreen');
-  const [regIdentifier, setRegIdentifier] = useState('afreen@example.com');
-  const [regPhone, setRegPhone] = useState('+91 ');
-  const [regPassword, setRegPassword] = useState('afreen123');
-  const [regConfirmPassword, setRegConfirmPassword] = useState('afreen123');
+  const [regName, setRegName] = useState('');
+  const [regIdentifier, setRegIdentifier] = useState('');
+  const [regPhone, setRegPhone] = useState('');
+  const [regPassword, setRegPassword] = useState('');
+  const [regConfirmPassword, setRegConfirmPassword] = useState('');
   const [showRegPassword, setShowRegPassword] = useState(false);
 
   const [isLoading, setIsLoading] = useState(false);
@@ -162,8 +162,8 @@ export const LoginPage: React.FC = () => {
                 type="button"
                 onClick={() => {
                   setLoginMethod('email');
-                  setIdentifier('afreen@example.com');
-                  setPassword('afreen123');
+                  setIdentifier('');
+                  setPassword('');
                 }}
                 className={`touch-target flex-1 flex items-center justify-center gap-1.5 py-1.5 rounded-full text-xs font-bold transition cursor-pointer ${
                   loginMethod === 'email'
@@ -179,8 +179,8 @@ export const LoginPage: React.FC = () => {
                 type="button"
                 onClick={() => {
                   setLoginMethod('phone');
-                  setIdentifier('+91 98765 43210');
-                  setPassword('afreen123');
+                  setIdentifier('');
+                  setPassword('');
                 }}
                 className={`touch-target flex-1 flex items-center justify-center gap-1.5 py-1.5 rounded-full text-xs font-bold transition cursor-pointer ${
                   loginMethod === 'phone'
@@ -213,7 +213,7 @@ export const LoginPage: React.FC = () => {
                     type={loginMethod === 'email' ? 'text' : 'tel'}
                     value={identifier}
                     onChange={(e) => setIdentifier(e.target.value)}
-                    placeholder={loginMethod === 'email' ? 'e.g. afreen@example.com or Afreen' : 'e.g. +91 98765 43210'}
+                    placeholder={loginMethod === 'email' ? 'Enter your registered email or name' : 'Enter mobile number (e.g. +91 98765 43210)'}
                     required
                     className="touch-target w-full h-[46px] pl-10 pr-3.5 rounded-full border border-[#EFEAE1] bg-[#FAF7F2] text-sm text-[#2D2545] placeholder:text-[#988EA8] focus:bg-white focus:outline-none focus:border-[#FF6138] focus:ring-2 focus:ring-[#FFF0EB]"
                   />
@@ -264,33 +264,6 @@ export const LoginPage: React.FC = () => {
                 <ArrowRight className="w-4 h-4" />
               </button>
             </form>
-
-            {/* Quick 1-Tap Pre-configured Account (Afreen) */}
-            <div className="mt-5 pt-4 border-t border-[#F4EFE6] space-y-2">
-              <span className="text-[11px] font-bold uppercase tracking-wider text-[#6B6282] block text-center">
-                1-Tap Quick Log In Profile:
-              </span>
-
-              {/* Afreen Account */}
-              <button
-                type="button"
-                onClick={() => handleQuickDemo('afreen@example.com', 'afreen123')}
-                className="touch-target w-full p-3 rounded-[14px] bg-[#FFF0EB] hover:bg-[#FFE5DC] border border-[#FF6138]/25 text-left transition flex items-center justify-between cursor-pointer group shadow-2xs"
-              >
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-full bg-[#FF6138] text-white flex items-center justify-center text-xs font-black shadow-xs">
-                    AF
-                  </div>
-                  <div>
-                    <span className="text-xs font-extrabold text-[#2D2545] block group-hover:text-[#FF6138]">
-                      Afreen (Patient Account)
-                    </span>
-                    <span className="text-[11px] text-[#6B6282]">Password: afreen123</span>
-                  </div>
-                </div>
-                <UserCheck className="w-4 h-4 text-[#FF6138]" />
-              </button>
-            </div>
           </div>
         )}
 
@@ -319,7 +292,8 @@ export const LoginPage: React.FC = () => {
                   type="text"
                   value={regName}
                   onChange={(e) => setRegName(e.target.value)}
-                  placeholder="e.g. Afreen"
+                  placeholder="Enter full name"
+                  autoComplete="off"
                   required
                   className="touch-target w-full h-[46px] px-4 rounded-full border border-[#EFEAE1] bg-[#FAF7F2] text-sm text-[#2D2545] placeholder:text-[#988EA8] focus:bg-white focus:outline-none focus:border-[#FF6138] focus:ring-2 focus:ring-[#FFF0EB]"
                 />
@@ -339,14 +313,9 @@ export const LoginPage: React.FC = () => {
                     id="reg-phone"
                     type="tel"
                     value={regPhone}
-                    onChange={(e) => {
-                      let val = e.target.value;
-                      if (!val.startsWith('+91')) {
-                        val = '+91 ' + val.replace(/^\+?91\s*/, '');
-                      }
-                      setRegPhone(val);
-                    }}
+                    onChange={(e) => setRegPhone(e.target.value)}
                     placeholder="+91 98765 43210"
+                    autoComplete="off"
                     required
                     className="touch-target w-full h-[46px] pl-10 pr-3.5 rounded-full border border-[#EFEAE1] bg-[#FAF7F2] text-sm text-[#2D2545] font-bold placeholder:text-[#988EA8] placeholder:font-normal focus:bg-white focus:outline-none focus:border-[#FF6138] focus:ring-2 focus:ring-[#FFF0EB]"
                   />
@@ -370,7 +339,8 @@ export const LoginPage: React.FC = () => {
                     type="email"
                     value={regIdentifier}
                     onChange={(e) => setRegIdentifier(e.target.value)}
-                    placeholder="e.g. afreen@example.com"
+                    placeholder="Enter email address"
+                    autoComplete="off"
                     required
                     className="touch-target w-full h-[46px] pl-10 pr-3.5 rounded-full border border-[#EFEAE1] bg-[#FAF7F2] text-sm text-[#2D2545] placeholder:text-[#988EA8] focus:bg-white focus:outline-none focus:border-[#FF6138] focus:ring-2 focus:ring-[#FFF0EB]"
                   />
@@ -391,7 +361,8 @@ export const LoginPage: React.FC = () => {
                     type={showRegPassword ? 'text' : 'password'}
                     value={regPassword}
                     onChange={(e) => setRegPassword(e.target.value)}
-                    placeholder="Create a password (e.g. afreen123)"
+                    placeholder="Create a secure password"
+                    autoComplete="new-password"
                     required
                     className="touch-target w-full h-[46px] pl-10 pr-10 rounded-full border border-[#EFEAE1] bg-[#FAF7F2] text-sm text-[#2D2545] placeholder:text-[#988EA8] focus:bg-white focus:outline-none focus:border-[#FF6138] focus:ring-2 focus:ring-[#FFF0EB]"
                   />
@@ -420,7 +391,8 @@ export const LoginPage: React.FC = () => {
                     type="password"
                     value={regConfirmPassword}
                     onChange={(e) => setRegConfirmPassword(e.target.value)}
-                    placeholder="Re-enter your password..."
+                    placeholder="Re-enter your password"
+                    autoComplete="new-password"
                     required
                     className="touch-target w-full h-[46px] pl-10 pr-3.5 rounded-full border border-[#EFEAE1] bg-[#FAF7F2] text-sm text-[#2D2545] placeholder:text-[#988EA8] focus:bg-white focus:outline-none focus:border-[#FF6138] focus:ring-2 focus:ring-[#FFF0EB]"
                   />

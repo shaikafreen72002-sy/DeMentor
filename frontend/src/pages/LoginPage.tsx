@@ -6,8 +6,8 @@ import { Activity, Mail, Phone, Lock, Eye, EyeOff, ArrowRight, Sparkles, UserChe
 export const LoginPage: React.FC = () => {
   const { login } = usePatient();
   const [loginMethod, setLoginMethod] = useState<'email' | 'phone'>('email');
-  const [identifier, setIdentifier] = useState('lakshmi@example.com');
-  const [password, setPassword] = useState('pass123');
+  const [identifier, setIdentifier] = useState('');
+  const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
